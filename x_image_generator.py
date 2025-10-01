@@ -64,90 +64,169 @@ class XImageGenerator:
         }
 
     def generate_header_prompts(self) -> List[str]:
-        """Generate diverse prompts for X header backgrounds"""
-        base_prompts = [
-            "vibrant cartoon landscape with rolling hills and fluffy clouds, flat design, vector art style",
-            "abstract geometric patterns with circles and triangles, cartoon style, pastel colors",
-            "cartoon space scene with planets and stars, retro futuristic, bright neon colors",
-            "underwater cartoon scene with coral and bubbles, vibrant colors, stylized design",
-            "cartoon city skyline silhouette with simple shapes, gradient sky, minimalist design",
-            "abstract waves and curves pattern, cartoon style, rainbow gradient, dynamic flow",
-            "cartoon forest with stylized trees, flat design, autumn colors",
-            "geometric pattern with hexagons, cartoon style, bright complementary colors",
-            "cartoon clouds and rainbows, kawaii style, pastel colors, simple shapes",
-            "abstract cartoon mountains with sun, minimalist design, warm colors",
-            "cartoon desert landscape with cacti silhouettes, sunset colors, simple shapes",
-            "retro cartoon pattern with stars and moons, vintage colors",
-            "cartoon tropical leaves pattern, bright green and pink",
-            "abstract cartoon bubbles floating, rainbow colors, glossy effect",
-            "cartoon circuit board pattern, tech aesthetic, neon colors",
-            "stylized cartoon waves, Japanese art inspired, blue gradient",
-            "cartoon crystals and gems pattern, bright jewel tones, geometric",
-            "abstract cartoon smoke swirls, gradient colors, dreamy effect",
-            "cartoon food pattern with fruits, kawaii style, bright colors",
-            "geometric cartoon pattern with dots and lines, memphis style"
+        """Generate diverse prompts for X header backgrounds - FUN AND VIRAL"""
+
+        # Main subjects/scenes for variety
+        scenes = [
+            "interconnected floating neon islands with rainbow bridges",
+            "abstract vaporwave city skyline melting into geometric shapes",
+            "surreal landscape of giant floating crystals and holographic clouds",
+            "cyberpunk circuit board landscape transforming into organic patterns",
+            "retro arcade game world with pixelated mountains and glitch effects",
+            "dreamlike space station interior with impossible M.C. Escher geometry",
+            "underwater digital realm with neon coral and data streams",
+            "abstract memphis-style playground with impossible physics",
+            "futuristic Tokyo street scene abstracted into geometric patterns",
+            "surreal desert with chrome cacti and liquid metal dunes",
+            "floating digital gardens with pixelated flowers and holographic trees",
+            "abstract social media universe with floating interface elements",
+            "neon jungle with geometric animals and data vines",
+            "retro-futuristic mall aesthetic with vaporwave elements",
+            "digital storm of emoji particles and meme symbols"
         ]
 
-        # Add style variations
-        styles = ["flat design", "isometric", "minimalist", "vector art", "retro"]
-        moods = ["cheerful", "energetic", "calm", "playful", "vibrant"]
+        # Color palettes
+        palettes = [
+            "electric pink, cyan, deep purple neons",
+            "pastel vaporwave pink, blue, and mint",
+            "acid green, hot magenta, electric yellow",
+            "deep space purple, galaxy blue, nebula pink",
+            "miami vice teal and hot pink",
+            "cyberpunk red, blue, and chrome",
+            "rainbow holographic with iridescent effects",
+            "sunset orange, purple, and gold gradients",
+            "matrix green and black with glitch effects",
+            "cotton candy pastels with neon accents"
+        ]
+
+        # Meme-related objects (generic, no specific brands)
+        objects = [
+            "floating diamond hands, rocket ships, and moon symbols",
+            "abstract emoji explosions, heart reactions, fire symbols",
+            "glitching pixel art creatures and retro game power-ups",
+            "holographic butterflies, stars, and sparkle effects",
+            "floating crystals, gems, and energy orbs",
+            "abstract wifi signals, cloud symbols, and data streams",
+            "geometric pizza slices, tacos, and food icons",
+            "retro computer windows, cursors, and loading bars",
+            "abstract money symbols, coins, and treasure chests",
+            "floating planets, UFOs, and space objects",
+            "rainbow prisms, laser beams, and light trails",
+            "abstract cat shapes, dog patterns, and animal spirits",
+            "digital flowers, mushrooms, and nature fractals",
+            "geometric skulls, flames, and lightning bolts",
+            "abstract crown symbols, stars, and celebration confetti"
+        ]
+
+        # Moods
+        moods = [
+            "chaotic but harmonious",
+            "explosively vibrant",
+            "dreamily surreal",
+            "aggressively playful",
+            "mysteriously energetic",
+            "wildly optimistic",
+            "beautifully chaotic",
+            "hypnotically dynamic"
+        ]
 
         enhanced_prompts = []
-        for prompt in base_prompts:
-            for i in range(8):  # Create 8 variations of each base prompt
-                style = random.choice(styles)
-                mood = random.choice(moods)
-                enhanced = f"{prompt}, {mood} mood, {style} style, no text, no people, no brands, no logos, cartoon illustration, professional quality, 1500x500 aspect ratio"
-                enhanced_prompts.append(enhanced)
+        for i in range(150):
+            scene = random.choice(scenes)
+            palette = random.choice(palettes)
+            object_set = random.choice(objects)
+            mood = random.choice(moods)
+
+            prompt = f"A wide, 1500x500 pixel cartoonish background image. {scene}. Focus on {palette} color palette. Include {object_set} scattered throughout the composition. No people, no text, no brands. The overall mood should be {mood}. Allow for black padding above and below if necessary to fit the aspect ratio. Digital art style, trending design, high energy, maximum visual impact"
+
+            enhanced_prompts.append(prompt)
 
         return enhanced_prompts[:150]  # Return 150 header prompts
 
     def generate_profile_prompts(self) -> List[str]:
-        """Generate diverse prompts for X profile images"""
-        base_prompts = [
-            "cute cartoon robot face, simple design, friendly expression",
-            "cartoon cat face, minimalist style, big eyes",
-            "cartoon avocado character, kawaii style, happy face",
-            "abstract cartoon smiley face, unique design",
-            "cartoon pizza slice character, cute style, simple features",
-            "cartoon cloud with rainbow, kawaii style",
-            "cartoon star character, glowing effect, happy expression",
-            "cartoon cactus with flowers, cute design, simple shapes",
-            "cartoon donut character, sprinkles, happy face",
-            "cartoon lightning bolt, cool design, neon effect",
-            "cartoon moon face, dreamy expression",
-            "cartoon diamond shape, crystal effect, rainbow colors",
-            "cartoon flame character, friendly fire",
-            "cartoon planet with rings, cute space theme",
-            "cartoon ice cream cone, kawaii style",
-            "cartoon mushroom character, fantasy style",
-            "cartoon heart shape, glossy effect, gradient",
-            "cartoon octopus face, simple design, happy",
-            "cartoon unicorn head, minimalist style, rainbow mane",
-            "cartoon alien face, friendly design",
-            "cartoon panda face, simple geometric shapes",
-            "cartoon fox face, geometric style",
-            "cartoon owl face, big eyes",
-            "cartoon bear face, minimalist design",
-            "cartoon bunny face, long ears",
-            "cartoon penguin face, simple shapes",
-            "cartoon koala face, gray colors",
-            "cartoon sloth face, slow and happy",
-            "cartoon llama face, fluffy design",
-            "cartoon bee character, stripes and wings"
+        """Generate diverse prompts for X profile images - CYBERPUNK VIRAL STYLE"""
+
+        # Main subjects/characters
+        subjects = [
+            "geometric wolf head",
+            "abstract dragon face",
+            "cybernetic cat avatar",
+            "digital phoenix",
+            "holographic bear spirit",
+            "neon tiger mask",
+            "crystalline eagle head",
+            "robot samurai helmet",
+            "alien consciousness orb",
+            "digital demon skull",
+            "cyber owl entity",
+            "abstract lion mane",
+            "pixelated shark jaw",
+            "geometric butterfly being",
+            "plasma energy creature",
+            "digital octopus brain",
+            "chrome skull avatar",
+            "neon serpent head",
+            "abstract fox spirit",
+            "cyber monkey face",
+            "holographic raven",
+            "digital wolf pack leader",
+            "geometric unicorn",
+            "abstract bull head",
+            "neon mantis warrior",
+            "crystalline spider queen",
+            "digital kraken eye",
+            "cyber panda warrior",
+            "abstract jellyfish mind",
+            "holographic bat creature"
         ]
 
-        # Add color variations
-        color_schemes = ["pastel colors", "bright colors", "neon colors", "warm tones", "cool tones"]
-        styles = ["flat design", "3D effect", "minimalist", "kawaii", "geometric"]
+        # Internet/meme symbols
+        meme_symbols = [
+            "diamond hands, rocket emojis, and moon crescents",
+            "fire emojis, 100 symbols, and explosion effects",
+            "heart reactions, thumbs up, and star ratings",
+            "lightning bolts, energy waves, and power symbols",
+            "crown symbols, trophy icons, and winner badges",
+            "pizza slices, taco patterns, and food particles",
+            "WiFi signals, cloud icons, and data streams",
+            "pixel hearts, game lives, and power-up symbols",
+            "money bags, coin stacks, and treasure effects",
+            "rainbow prisms, sparkles, and magic dust",
+            "skull emojis, flame effects, and danger signs",
+            "eye symbols, third eyes, and vision beams",
+            "mushroom clouds, atomic symbols, and radiation",
+            "infinity loops, sacred geometry, and fractals",
+            "glitch artifacts, error messages, and corrupted data"
+        ]
+
+        # Color palettes
+        color_combos = [
+            "fuchsia, electric blue, violet",
+            "hot pink, cyan, deep purple",
+            "acid green, magenta, gold",
+            "crimson red, neon blue, silver",
+            "toxic green, hot orange, black",
+            "miami pink, teal, white",
+            "royal purple, emerald, gold",
+            "electric yellow, hot pink, turquoise",
+            "blood red, ice blue, chrome",
+            "neon orange, purple, lime",
+            "galaxy blue, nebula pink, star white",
+            "matrix green, black, silver",
+            "sunset orange, violet, indigo",
+            "cotton candy pink, baby blue, lavender",
+            "radioactive green, warning orange, hazard yellow"
+        ]
 
         enhanced_prompts = []
-        for prompt in base_prompts:
-            for i in range(5):  # Create 5 variations of each base prompt
-                colors = random.choice(color_schemes)
-                style = random.choice(styles)
-                enhanced = f"{prompt}, {colors}, {style} style, no text, no watermarks, square format, cartoon illustration, professional quality"
-                enhanced_prompts.append(enhanced)
+        for i in range(150):
+            subject = random.choice(subjects)
+            symbols = random.choice(meme_symbols)
+            colors = random.choice(color_combos)
+
+            prompt = f"Abstract, neon-drenched digital art profile picture, centered {subject} with glowing eyes, surrounded by a chaotic yet cohesive swirling vortex of {symbols}. Vibrant cyberpunk color palette of {colors}. High detail, intricate lines, dynamic lighting, trending on ArtStation. No text, no watermarks, square format, maximum visual impact, viral aesthetic"
+
+            enhanced_prompts.append(prompt)
 
         return enhanced_prompts[:150]  # Return 150 profile prompts
 
@@ -171,9 +250,17 @@ class XImageGenerator:
 
             # Get access token
             import subprocess
-            result = subprocess.run(['gcloud', 'auth', 'print-access-token'],
-                                  capture_output=True, text=True, check=True)
-            access_token = result.stdout.strip()
+            try:
+                result = subprocess.run(['gcloud', 'auth', 'print-access-token'],
+                                      capture_output=True, text=True, check=True)
+                access_token = result.stdout.strip()
+            except subprocess.CalledProcessError as e:
+                # Fallback: try using environment variable if set
+                access_token = os.environ.get('GOOGLE_ACCESS_TOKEN')
+                if not access_token:
+                    logger.error(f"Failed to get access token: {e}")
+                    logger.error("Try running: gcloud auth application-default login")
+                    raise
 
             # Set image size based on aspect ratio
             if aspect_ratio == "3:1":
@@ -184,6 +271,7 @@ class XImageGenerator:
                 image_size = "1024x1024"
 
             # Prepare the request payload for Imagen
+            # Note: Cannot use seed with default watermark settings
             payload = {
                 "instances": [
                     {
@@ -192,11 +280,9 @@ class XImageGenerator:
                 ],
                 "parameters": {
                     "sampleCount": 1,
-                    "aspectRatio": aspect_ratio,
                     "negativePrompt": "text, watermark, logo, brand, signature, low quality, blurry, realistic photo, human, person, face, letters, words, writing",
-                    "sampleImageSize": image_size.split('x')[0],  # Use width as size hint
-                    "addWatermark": False,
-                    "seed": random.randint(0, 1000000)  # Random seed for variety
+                    "sampleImageSize": int(image_size.split('x')[0])  # Convert to integer
+                    # Removed seed parameter - not compatible with watermark
                 }
             }
 
@@ -222,12 +308,20 @@ class XImageGenerator:
                             "prompt": prompt
                         }
 
-            # Handle errors
+            # Handle errors with detailed logging
             error_msg = f"API returned {response.status_code}"
             if response.status_code == 429:
                 error_msg = "Rate limit exceeded"
             elif response.status_code == 403:
                 error_msg = "Permission denied - check if Imagen is enabled"
+            elif response.status_code == 400:
+                # Log the full error for 400 responses
+                try:
+                    error_detail = response.json()
+                    logger.error(f"400 Error Details: {error_detail}")
+                    error_msg = f"Bad request: {error_detail.get('error', {}).get('message', 'Unknown error')}"
+                except:
+                    error_msg = f"Bad request: {response.text[:200]}"
 
             return {
                 "success": False,

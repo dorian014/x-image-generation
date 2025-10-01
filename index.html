@@ -304,9 +304,15 @@
                     <label>Count:</label>
                     <input type="number" id="headerCount" value="150" min="1" max="300">
                 </div>
-                <div class="count-input" style="margin-top: 10px;">
-                    <label>Folder:</label>
-                    <input type="text" id="headerFolder" placeholder="generated_images/headers" style="width: 200px;">
+                <div class="count-input" style="margin-top: 10px; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 0.9em;">📁 Save to folder:</label>
+                    <div style="display: flex; gap: 10px; align-items: center; width: 100%;">
+                        <input type="text" id="headerFolder" placeholder="generated_images/headers" style="flex: 1; padding: 8px;" value="generated_images/headers">
+                        <button onclick="showFolderNote('header')" style="padding: 8px 12px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85em;">
+                            Browse
+                        </button>
+                    </div>
+                    <span style="font-size: 0.75em; color: #666;">Type the folder path or use quick paths below</span>
                 </div>
             </div>
 
@@ -319,9 +325,15 @@
                     <label>Count:</label>
                     <input type="number" id="profileCount" value="150" min="1" max="300">
                 </div>
-                <div class="count-input" style="margin-top: 10px;">
-                    <label>Folder:</label>
-                    <input type="text" id="profileFolder" placeholder="generated_images/profiles" style="width: 200px;">
+                <div class="count-input" style="margin-top: 10px; flex-direction: column; gap: 5px;">
+                    <label style="font-size: 0.9em;">📁 Save to folder:</label>
+                    <div style="display: flex; gap: 10px; align-items: center; width: 100%;">
+                        <input type="text" id="profileFolder" placeholder="generated_images/profiles" style="flex: 1; padding: 8px;" value="generated_images/profiles">
+                        <button onclick="showFolderNote('profile')" style="padding: 8px 12px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85em;">
+                            Browse
+                        </button>
+                    </div>
+                    <span style="font-size: 0.75em; color: #666;">Type the folder path or use quick paths below</span>
                 </div>
             </div>
         </div>
@@ -333,6 +345,28 @@
         <button class="test-btn" onclick="testGeneration()">
             🧪 Test Generation (2 headers + 2 profiles)
         </button>
+
+        <div style="margin-top: 20px; padding: 15px; background: #f0f4ff; border-radius: 12px; border: 1px solid #d0d8ff;">
+            <h4 style="margin: 0 0 10px 0; color: #4a5568; font-size: 0.95em;">📍 Quick Folder Paths</h4>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="setDesktopPath()" style="padding: 6px 12px; background: white; border: 1px solid #cbd5e0; border-radius: 6px; cursor: pointer; font-size: 0.85em;">
+                    🖥️ Desktop
+                </button>
+                <button onclick="setDownloadsPath()" style="padding: 6px 12px; background: white; border: 1px solid #cbd5e0; border-radius: 6px; cursor: pointer; font-size: 0.85em;">
+                    ⬇️ Downloads
+                </button>
+                <button onclick="setCurrentPath()" style="padding: 6px 12px; background: white; border: 1px solid #cbd5e0; border-radius: 6px; cursor: pointer; font-size: 0.85em;">
+                    📂 Current Directory
+                </button>
+                <button onclick="setCustomPath()" style="padding: 6px 12px; background: white; border: 1px solid #cbd5e0; border-radius: 6px; cursor: pointer; font-size: 0.85em;">
+                    ✏️ Custom Path
+                </button>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.8em; color: #666;">
+                Current user: <code>/Users/dorianguzman/</code><br>
+                You can type any absolute or relative path. Folders will be created if they don't exist.
+            </p>
+        </div>
 
         <div class="status-container" id="statusContainer">
             <div class="status-header">
@@ -409,7 +443,7 @@
                     headerFolder: headerFolder,
                     profileFolder: profileFolder
                 });
-                eventSource = new EventSource(`http://localhost:8080/generate?${params.toString()}`);
+                eventSource = new EventSource(`http://localhost:8888/generate?${params.toString()}`);
 
                 let totalProcessed = 0;
                 const totalImages = headerCount + profileCount;
@@ -485,10 +519,69 @@
             addLogEntry(message, 'error');
         }
 
+        // Show folder selection note
+        function showFolderNote(type) {
+            const field = document.getElementById(type + 'Folder');
+            const currentPath = field.value || 'generated_images/' + type + 's';
+
+            const message = `
+📂 FOLDER SELECTION
+
+Due to browser security, you need to:
+
+1. Copy this path:
+   ${currentPath}
+
+2. Or enter a new path like:
+   • /Users/dorianguzman/Desktop/${type}s
+   • /Users/dorianguzman/Pictures/X_Images/${type}s
+   • ~/Downloads/${type}s
+
+3. Or use the quick path buttons below!
+
+The folder will be created automatically if it doesn't exist.
+            `;
+
+            alert(message);
+
+            // Show example in the field
+            if (!field.value) {
+                field.value = `/Users/dorianguzman/Desktop/x_${type}s`;
+            }
+        }
+
+        // Quick path helper functions
+        function setDesktopPath() {
+            document.getElementById('headerFolder').value = '/Users/dorianguzman/Desktop/x_headers';
+            document.getElementById('profileFolder').value = '/Users/dorianguzman/Desktop/x_profiles';
+            addLogEntry('Set output to Desktop folders', 'info');
+        }
+
+        function setDownloadsPath() {
+            document.getElementById('headerFolder').value = '/Users/dorianguzman/Downloads/x_headers';
+            document.getElementById('profileFolder').value = '/Users/dorianguzman/Downloads/x_profiles';
+            addLogEntry('Set output to Downloads folders', 'info');
+        }
+
+        function setCurrentPath() {
+            document.getElementById('headerFolder').value = 'generated_images/headers';
+            document.getElementById('profileFolder').value = 'generated_images/profiles';
+            addLogEntry('Set output to current directory', 'info');
+        }
+
+        function setCustomPath() {
+            const basePath = prompt('Enter base folder path (e.g., /Users/dorianguzman/Pictures):', '/Users/dorianguzman/');
+            if (basePath) {
+                document.getElementById('headerFolder').value = basePath + '/x_headers';
+                document.getElementById('profileFolder').value = basePath + '/x_profiles';
+                addLogEntry(`Set output to: ${basePath}`, 'info');
+            }
+        }
+
         // Check if server is running on page load
         window.addEventListener('load', async function() {
             try {
-                const response = await fetch('http://localhost:8080/status');
+                const response = await fetch('http://localhost:8888/status');
                 if (!response.ok) {
                     showError('Server is not running. Run: python server.py');
                 }

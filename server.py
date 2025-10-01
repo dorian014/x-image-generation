@@ -16,7 +16,7 @@ from pathlib import Path
 # Import our image generator
 from x_image_generator import XImageGenerator
 
-PORT = 8080
+PORT = 8888
 
 class ImageGeneratorHandler(http.server.SimpleHTTPRequestHandler):
     """Custom HTTP handler for image generation"""
@@ -28,6 +28,10 @@ class ImageGeneratorHandler(http.server.SimpleHTTPRequestHandler):
         if parsed_path.path == '/':
             # Serve the index.html file
             self.serve_html()
+        elif parsed_path.path == '/favicon.ico':
+            # Handle favicon request (return empty for now)
+            self.send_response(204)  # No Content
+            self.end_headers()
         elif parsed_path.path == '/status':
             # Check server status
             self.send_response(200)
@@ -40,7 +44,10 @@ class ImageGeneratorHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_generation(parsed_path)
         else:
             # Serve static files
-            super().do_GET()
+            try:
+                super().do_GET()
+            except:
+                self.send_error(404, "File not found")
 
     def serve_html(self):
         """Serve the index.html file"""
@@ -131,8 +138,9 @@ class ImageGeneratorHandler(http.server.SimpleHTTPRequestHandler):
 
     def log_message(self, format, *args):
         """Override to reduce console spam"""
-        if '/generate' in args[0] or '/status' in args[0]:
-            pass  # Don't log these requests
+        if args and isinstance(args[0], str):
+            if '/generate' in args[0] or '/status' in args[0] or 'favicon' in args[0]:
+                pass  # Don't log these requests
         else:
             super().log_message(format, *args)
 
